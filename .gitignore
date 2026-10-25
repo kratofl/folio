@@ -1,2 +1,4 @@
 /target
 .DS_Store
+# Reference checkouts for agents (see the gpui skill). Too big to commit.
+/.refs

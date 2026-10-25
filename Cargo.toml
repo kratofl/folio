@@ -1,0 +1,33 @@
+[workspace]
+resolver = "3"
+members = ["crates/folio-core", "crates/folio"]
+
+[workspace.package]
+edition = "2024"
+license = "GPL-3.0-or-later"
+rust-version = "1.98"
+
+[workspace.dependencies]
+folio-core = { path = "crates/folio-core" }
+# Same major/minor as gpui uses, so `image::Frame` is the type gpui expects.
+image = { version = "0.25.10", default-features = false }
+jpeg-decoder = { version = "0.3", default-features = false }
+unicode-normalization = "0.1"
+# Already in the build through gpui. `clock` reads the system time zone.
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+# GPUI is pre-1.0 and changes often, so it's pinned to one Zed commit. The
+# reference checkout in .refs/zed must sit at the same commit (see the gpui skill).
+gpui = { git = "https://github.com/zed-industries/zed", rev = "a5c4ca8bf6c4717a328a4a61b42d6d1d38949bcc" }
+# runtime_shaders compiles Metal shaders at startup, so building doesn't need
+# the full Xcode toolchain.
+gpui_platform = { git = "https://github.com/zed-industries/zed", rev = "a5c4ca8bf6c4717a328a4a61b42d6d1d38949bcc", features = ["font-kit", "runtime_shaders"] }
+
+# Zed patches async-task, and gpui relies on that fork. Patches don't carry
+# over from a git dependency's workspace, so this repeats Zed's.
+[patch.crates-io]
+async-task = { git = "https://github.com/zed-industries/async-task.git", rev = "015845a19fc31752c02367567d3b8900a406f9da" }
+
+[profile.dev.package."*"]
+# Image decoding is unusably slow unoptimized, even while debugging the app.
+opt-level = 3

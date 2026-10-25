@@ -1,10 +1,14 @@
+<p align="center">
+  <img src="assets/brand/folio-icon.svg" alt="Folio icon" width="128">
+</p>
+
 # Folio
 
 A fast, open source photo organizer for people who keep their photos in folders.
 
-Folio treats any folder of photos as a library, the way git treats a folder of code. Ratings, groups and saved views live in a hidden `.folio/` folder next to your photos. Open the same folder on another machine and everything is still there. No import, no catalog stored somewhere else, no lock-in.
+Folio treats any folder of photos as a library, the way git treats a folder of code. Ratings and labels go into standard XMP sidecars, and what has no other home lives in a hidden `.folio/` folder next to your photos. Open the same folder on another machine and everything is still there. No import, no catalog stored somewhere else, no lock-in.
 
-> Folio is at the very start. There's no usable app yet.
+> Folio is early. It can already sort a folder of date folders into `Category/Outing/` folders with undo (videos included), rate, label and flag photos into XMP sidecars, show a photo large and zoom in with a pinch, show its histogram and metadata, filter and save views, and hand a photo to Affinity. There are no releases yet. To try it on a Mac, run `scripts/bundle-macos.sh` and open `target/release/Folio.app`.
 
 ## Why
 
