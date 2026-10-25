@@ -1,0 +1,18 @@
+{
+  "$schema": "https://t3.codes/schema/t3.json",
+  "iconPath": "assets/brand/folio-icon.svg",
+  "scripts": [
+    {
+      "name": "Setup",
+      "command": "make setup",
+      "icon": "configure",
+      "runOnWorktreeCreate": true,
+      "async": false
+    },
+    { "name": "Test", "command": "make test", "icon": "test" },
+    { "name": "Lint", "command": "make lint", "icon": "lint" },
+    { "name": "Run", "command": "make run", "icon": "play" },
+    { "name": "Run on scratch library", "command": "make run-scratch", "icon": "play" },
+    { "name": "Bundle Folio.app", "command": "make bundle", "icon": "build" }
+  ]
+}

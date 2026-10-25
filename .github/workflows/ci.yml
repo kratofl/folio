@@ -1,0 +1,27 @@
+# Builds and checks Folio on both platforms it ships for. Windows has no
+# other test bed yet, so this is where Windows-only breakage shows up first.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      # The same checks as `make check`, written out since Windows has no make.
+      - name: Core tests
+        run: cargo test -p folio-core
+      - name: Clippy, which also builds the app
+        run: cargo clippy --release -p folio-core -p folio --all-targets -- -D warnings

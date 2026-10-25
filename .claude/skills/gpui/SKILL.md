@@ -10,14 +10,15 @@ GPUI is Zed's GPU-rendered UI framework. It's pre-1.0, changes often and has thi
 ## Before writing code
 
 1. **Find the pinned version.** Check `Cargo.toml` for the exact git commit of `gpui`, and of `gpui-component` if it's used. GPUI must always be pinned to a commit, never a branch.
-2. **Make sure the reference checkouts exist** at that same commit, outside the repo. They're too big to vendor.
-   - Zed: `git clone https://github.com/zed-industries/zed ../zed-ref`, then `git -C ../zed-ref checkout <commit>`.
-   - gpui-component: `git clone https://github.com/longbridge/gpui-component ../gpui-component-ref`, then check out its pinned commit.
+2. **Make sure the reference checkouts exist** at that same commit, in `.refs/` at the root of the main checkout. Git ignores that folder, since they're too big to vendor.
+   - Zed: `git clone https://github.com/zed-industries/zed .refs/zed`, then `git -C .refs/zed checkout <commit>`.
+   - gpui-component: `git clone https://github.com/longbridge/gpui-component .refs/gpui-component`, then check out its pinned commit.
+   - In a git worktree, `.refs/` is the main checkout's, not the worktree's. `make paths` shows where it is. `make setup` warns when it's missing or at the wrong commit.
 3. **Look up every API you plan to use** in those checkouts before you write code that calls it. The most useful places:
-   - `../zed-ref/crates/gpui/examples/`: small runnable examples.
-   - `../zed-ref/crates/gpui/src/`: the framework itself.
-   - `../zed-ref/crates/`: Zed's own UI, which is real-world usage. Grep for the element or method you need.
-   - `../gpui-component-ref/examples/`: ready-made components.
+   - `.refs/zed/crates/gpui/examples/`: small runnable examples.
+   - `.refs/zed/crates/gpui/src/`: the framework itself.
+   - `.refs/zed/crates/`: Zed's own UI, which is real-world usage. Grep for the element or method you need.
+   - `.refs/gpui-component/examples/`: ready-made components.
 
 ## While writing
 
